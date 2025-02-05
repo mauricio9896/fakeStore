@@ -1,15 +1,20 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { CartService } from '../../services/cart.service';
+import { RouterLink,  RouterLinkActive } from '@angular/router'
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html'
 })
 
 export class NavbarComponent {
-  closeNavbar = signal<boolean>(true);
+  hideSideMenu = signal(true);
+  private cartService = inject(CartService);
+  cart = this.cartService.cart;
+  total = this.cartService.total;
 
-  toogleNavbar(){
-    this.closeNavbar.update(state => !state);
+  toogleSideMenu() {
+    this.hideSideMenu.update(prevState => !prevState);
   }
 }

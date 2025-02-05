@@ -22,6 +22,7 @@ export class PageProductsComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next:(products: Product[] | null  )=> {
         if( !products?.length ) return console.log("No have products", products);
+        console.log('products :>> ', products);
         this.products.set(products);
       },
       error:(error: Error)=> console.error(error.message)

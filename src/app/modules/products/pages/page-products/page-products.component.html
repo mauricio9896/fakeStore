@@ -1,5 +1,7 @@
-<div class="grid grid-cols-4 gap-8 w-full">
+<div class="grid grid-cols-4 gap-6 w-full">
   @for (product of products(); track product) {
-    <app-product [product]="product" />
+    @if (product.images.length === 3) {
+      <app-product [product]="product" />
+    }
   }
 </div>

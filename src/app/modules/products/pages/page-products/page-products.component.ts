@@ -1,28 +1,31 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { ProductComponent } from "../../components/product/product.component";
 import { ProductService } from '../../../shared/services/product.service';
-import { Product } from '../../../shared/models/product.model';
+import { Filter, Product } from '../../../shared/models/product.model';
+import { FilterProductsComponent } from "../../components/filter-products/filter-products.component";
 
 @Component({
   selector: 'app-page-products',
-  imports: [ProductComponent],
+  imports: [ProductComponent, FilterProductsComponent],
   templateUrl: './page-products.component.html',
   styleUrl: './page-products.component.css'
 })
-export class PageProductsComponent implements OnInit {
+export class PageProductsComponent implements OnChanges {
+
+  @Input() categoryId !: string;
 
   products = signal<Product[]>([]);
   private productService = inject(ProductService);
 
-  ngOnInit(): void {
-    this.getProducts();
+  ngOnChanges( changes : SimpleChanges ): void {
+    const categoryId = changes['categoryId'];
+    this.getProducts([{ filterName : 'categoryId', filterValue :  categoryId.currentValue }]);
   }
 
-  getProducts(){
-    this.productService.getProducts().subscribe({
+  getProducts(filters : Filter[]){
+    this.productService.getProducts(filters).subscribe({
       next:(products: Product[] | null  )=> {
         if( !products?.length ) return console.log("No have products", products);
-        console.log('products :>> ', products);
         this.products.set(products);
       },
       error:(error: Error)=> console.error(error.message)

@@ -1,7 +1,13 @@
-<div class="grid grid-cols-4 gap-6 w-full">
-  @for (product of products(); track product) {
-    @if (product.images.length === 3) {
-      <app-product [product]="product" />
+<div class="container flex">
+  <div class="w-80">
+    <app-filter-products/>
+  </div>
+  <div class="grid grid-cols-3 gap-6 w-full">
+    @for (product of products(); track product) {
+      @if (product.images.length === 3) {
+        <app-product [product]="product" />
+      }
     }
-  }
+  </div>
 </div>
+

@@ -11,12 +11,15 @@ export interface Product {
 
 
 export interface Category {
-  id: number;
+  id: string;
   name: string;
   image: string;
   creationAt: string;
   updatedAt: string;
 }
 
-
+export interface Filter{
+  filterName : string;
+  filterValue: string;
+}
 

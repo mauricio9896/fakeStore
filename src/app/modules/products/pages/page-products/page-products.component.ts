@@ -12,14 +12,14 @@ import { FilterProductsComponent } from "../../components/filter-products/filter
 })
 export class PageProductsComponent implements OnChanges {
 
-  @Input() categoryId !: string;
+  @Input() categoryId !: string; // es un queryParam
 
   products = signal<Product[]>([]);
   private productService = inject(ProductService);
 
   ngOnChanges( changes : SimpleChanges ): void {
     const categoryId = changes['categoryId'];
-    this.getProducts([{ filterName : 'categoryId', filterValue :  categoryId.currentValue }]);
+    this.getProducts([]);
   }
 
   getProducts(filters : Filter[]){

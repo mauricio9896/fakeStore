@@ -8,7 +8,7 @@ import { Category, Filter, Product } from '../models/product.model';
 export class ProductService {
 
   private http = inject(HttpClient);
-  private url : string = 'https://api.escuelajs.co/api/v1/'
+  private url : string = 'https://young-sands-07814.herokuapp.com/api/'
 
 
   getProducts( filters: Filter[] ){
